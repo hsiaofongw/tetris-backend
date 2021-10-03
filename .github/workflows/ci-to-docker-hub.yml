@@ -25,7 +25,7 @@ jobs:
       - name: Get tag name
         id: get_tag_name
         run: |
-          echo "::set-output name=tag_name::`${{ github.ref }} | sed 's/refs\///g' | sed 's/tags\///g' | sed 's/heads\///g`"
+          echo "::set-output name=tag_name::`${{ github.ref }} | sed 's/refs\///g' | sed 's/tags\///g' | sed 's/heads\///g'`"
       
       - name: Test get tag name
         id: test_get_tag_name
