@@ -31,7 +31,6 @@ export class GithubAuthTokenService {
       payload,
       {
         responseType: 'json',
-        proxy: { host: 'localhost', port: 7890 },
         headers: { Accept: 'application/json' },
       },
     );
