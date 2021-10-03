@@ -4,12 +4,8 @@ services:
   tetris_backend:
     build:
       context: .
-      target: test
+      target: production
     ports:
       - 3000:3000
     environment:
-      - NODE_ENV=dev
-    volumes:
-      - ./:/app
-    command: npm run start:dev
-    
+      - NODE_ENV=production

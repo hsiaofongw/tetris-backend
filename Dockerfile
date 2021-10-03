@@ -1,18 +1,24 @@
 # syntax=docker/dockerfile:1
 
-FROM node:latest
+# 设置基镜像
+FROM node:latest as base
 
-ENV NODE_ENV=production
-
+# 设置工作目录
 WORKDIR /app
-
 COPY [ "package.json", "package-lock.json*", "./" ]
 
-RUN npm install
-RUN npm install -g @nestjs/cli
-
+# 定义 test 目标
+FROM base as test
+ENV NODE_ENV=dev
+RUN npm ci
 COPY . .
+RUN npm run test
 
+# 定义 production 目标
+FROM base as production
+ENV NODE_ENV=production
+RUN npm ci
+COPY . .
+RUN npm install -g @nestjs/cli
 RUN npm run build
-
 CMD [ "node", "dist/main.js" ]
