@@ -26,11 +26,7 @@ jobs:
         id: get_tag_name
         run: |
           echo "::set-output name=tag_name::`echo ${{ github.ref }} | sed 's/refs\///g' | sed 's/tags\///g' | sed 's/heads\///g'`"
-      
-      - name: Test get tag name
-        id: test_get_tag_name
-        run: echo ${{ steps.get_tag_name.outputs.tag_name }}
-
+     
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
@@ -48,7 +44,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tetris-backend-demo:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tetris-backend-demo:${{ steps.get_tag_name.outputs.tag_name }}
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
