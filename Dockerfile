@@ -11,6 +11,7 @@ COPY [ "package.json", "package-lock.json*", "./" ]
 FROM base as test
 ENV NODE_ENV=dev
 RUN npm ci
+RUN npm ls
 COPY . .
 RUN npm run test
 
@@ -18,6 +19,7 @@ RUN npm run test
 FROM base as production
 ENV NODE_ENV=production
 RUN npm ci
+RUN npm ls
 COPY . .
 RUN npm install -g @nestjs/cli
 RUN npm run build
