@@ -22,6 +22,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Get tag name
+        id: get_tag_name
+        run: |
+          echo "::set-output name=tag_name::`${{ github.ref }} | sed 's/refs\///g' | sed 's/tags\///g' | sed 's/heads\///g`"
+      
+      - name: Test get tag name
+        id: test_get_tag_name
+        run: echo ${{ steps.get_tag_name.outputs.tag_name }}
+
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
@@ -45,10 +54,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
           target: production
           
-      - name: Get tag name
-        id: get_tag_name
-        run: |
-          echo ${{ github.ref }} | sed 's/refs\///g' | sed 's/tags\///g' | sed 's/heads\///g'
+      
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
