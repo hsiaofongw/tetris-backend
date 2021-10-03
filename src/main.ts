@@ -8,7 +8,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Tetris Backend')
     .setDescription('Tetris Backend for storing scoreboard')
-    .setVersion('1.0')
+    .setVersion('0.1.0')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
