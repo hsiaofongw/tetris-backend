@@ -7,9 +7,16 @@ export type TokenInfo = {
   refreshTokenExpiresIn?: number;
 };
 
-export type TokenQueryResult = {
+export type ErrorInfo = {
+  statusCode?: number;
   message?: string;
+  errorCode?: string;
+  errorUri?: string;
+};
+
+export type JwtQueryResult = {
+  error?: ErrorInfo;
   result: {
-    token?: TokenInfo;
+    jwt: string;
   };
 };

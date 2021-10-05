@@ -6,6 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Tetris Backend')
     .setDescription('Tetris Backend for storing scoreboard')
     .setVersion('0.1.0')
