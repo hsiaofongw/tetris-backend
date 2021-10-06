@@ -9,6 +9,8 @@ services:
       - 3000:3000
     environment:
       - NODE_ENV=dev
+    env_file:
+      - .env.secret
     volumes:
       - ./:/app
     command: npm run start:dev

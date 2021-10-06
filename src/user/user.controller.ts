@@ -36,9 +36,11 @@ export class UserController {
       })
       .then((response) => {
         return {
-          username: response.data?.login ?? '',
-          avatarUrl: response.data?.avatar_url ?? '',
-        } as UserProfileQueryResult['result'];
+          result: {
+            username: response.data?.login ?? '',
+            avatarUrl: response.data?.avatar_url ?? '',
+          },
+        } as UserProfileQueryResult;
       });
   }
 }
