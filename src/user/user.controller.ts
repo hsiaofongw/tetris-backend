@@ -32,10 +32,6 @@ export class UserController {
           Authorization: 'token ' + token,
           Accept: 'application/json',
         },
-        proxy: {
-          host: '127.0.0.1',
-          port: 7890,
-        },
         responseType: 'json',
       })
       .then((response) => {

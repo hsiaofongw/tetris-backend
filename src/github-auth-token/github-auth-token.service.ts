@@ -24,7 +24,6 @@ export class GithubAuthTokenService {
         .post<any, any>(githubUrl, payload, {
           responseType: 'json',
           headers,
-          proxy: { host: '127.0.0.1', port: 7890 },
         })
         .then((serverReturn) => {
           const data = serverReturn.data;
