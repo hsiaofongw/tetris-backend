@@ -39,6 +39,7 @@ export class UserController {
           result: {
             username: response.data?.login ?? '',
             avatarUrl: response.data?.avatar_url ?? '',
+            userGitHubHomePage: response.data?.html_url ?? '',
           },
         } as UserProfileQueryResult;
       });
