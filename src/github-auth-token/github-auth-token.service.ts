@@ -29,6 +29,7 @@ export class GithubAuthTokenService {
           const data = serverReturn.data;
 
           if (data.error) {
+            console.error(data);
             reject({
               errorCode: data.error,
               message: data.error_description,
@@ -46,12 +47,13 @@ export class GithubAuthTokenService {
             refreshTokenExpiresIn: data.refresh_token_expires_in,
           } as TokenInfo);
         })
-        .catch((error) =>
+        .catch((error) => {
+          console.error(error);
           reject({
             statusCode: error.response?.status,
             message: error.response?.data ?? error.message,
-          } as ErrorInfo),
-        );
+          } as ErrorInfo);
+        });
     });
   }
 }
