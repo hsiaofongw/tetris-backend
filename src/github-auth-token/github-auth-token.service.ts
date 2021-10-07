@@ -49,7 +49,7 @@ export class GithubAuthTokenService {
         .catch((error) =>
           reject({
             statusCode: error.response?.status,
-            message: error.response.data ?? error.message,
+            message: error.response?.data ?? error.message,
           } as ErrorInfo),
         );
     });
