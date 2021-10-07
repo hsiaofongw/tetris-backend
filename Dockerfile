@@ -9,16 +9,15 @@ COPY [ "package.json", "package-lock.json*", "./" ]
 
 # 定义 test 目标
 FROM base as test
-ENV NODE_ENV=dev
 RUN npm ci
 COPY . .
+ENV NODE_ENV=dev
 RUN npm run test
 
 # 定义 production 目标
 FROM base as production
 RUN npm ci
 COPY . .
-RUN npm install -g @nestjs/cli
 RUN npm run build
 ENV NODE_ENV=production
 CMD [ "node", "dist/main.js" ]
