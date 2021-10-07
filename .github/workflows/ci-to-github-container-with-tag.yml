@@ -22,6 +22,7 @@ jobs:
 
             Repository: ${{ github.repository }}
             CommitSha1: ${{ github.sha }}
+            GitRef: ${{ github.ref }}
 
       - name: Get tag name
         id: get_tag_name
@@ -67,6 +68,7 @@ jobs:
             ImageTag: ghcr.io/${{ github.repository_owner }}/tetris-backend:${{ steps.get_tag_name.outputs.tag_name }}
             CommitSha1: ${{ github.sha }}
             ImageDigest: ${{ steps.docker_build.outputs.digest }}
+            GitRef: ${{ github.ref }}
 
       - name: Cache Docker layers
         uses: actions/cache@v2
