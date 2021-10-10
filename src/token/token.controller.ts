@@ -5,15 +5,7 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
-import {
-  catchError,
-  concatAll,
-  concatMap,
-  from,
-  map,
-  Observable,
-  zip,
-} from 'rxjs';
+import { catchError, concatAll, from, map, Observable, zip } from 'rxjs';
 import { GithubAuthTokenService } from 'src/github-auth-token/github-auth-token.service';
 import { LoginService } from 'src/login/login.service';
 import { UserProfileQueryResult } from 'src/user/interfaces';
@@ -52,25 +44,13 @@ export class TokenController {
       map((signPrepare) =>
         this.loginService.sign(
           signPrepare.tokenInfo,
-          this.getUserName(signPrepare.userProfileQueryResult),
+          this.userService.getUserNameFromUserQueryResult(
+            signPrepare.userProfileQueryResult,
+          ),
         ),
       ),
       map((jwtToken) => ({ result: { jwt: jwtToken } } as JwtQueryResult)),
     );
-  }
-
-  private getUserName(
-    userProfileQueryResult: UserProfileQueryResult,
-  ): string | undefined {
-    if (userProfileQueryResult.error) {
-      return undefined;
-    }
-
-    if (userProfileQueryResult.result !== undefined) {
-      return userProfileQueryResult.result.username;
-    }
-
-    return undefined;
   }
 
   private getUserProfile(token: string): Promise<UserProfileQueryResult> {

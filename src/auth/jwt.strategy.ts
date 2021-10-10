@@ -4,6 +4,10 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UserProfileQueryResult } from 'src/user/interfaces';
 import { UserService } from 'src/user/user.services';
 
+/**
+ * 通过继承 PassportStrategy 实现 jwt 验证功能，
+ * 通过实现 validate 函数实现 jwt 验证通过后获取用户 Profile
+ */
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private userService: UserService) {

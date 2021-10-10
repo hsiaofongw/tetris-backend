@@ -1,10 +1,10 @@
 {
-  "name": "tetris-game-backend",
-  "version": "0.0.12",
+  "name": "tetris-backend",
+  "version": "v0.2.1",
   "description": "",
   "author": "",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN ./LICENSE",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
