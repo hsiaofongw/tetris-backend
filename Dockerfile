@@ -18,7 +18,8 @@ RUN npm run test
 FROM base as production
 RUN npm ci
 COPY . .
-RUN npm run build
+RUN [ "npm", "run", "generate-version-info" ]
+RUN [ "npm", "run", "build" ]
 ENV NODE_ENV=production
 CMD [ "node", "dist/main.js" ]
 
