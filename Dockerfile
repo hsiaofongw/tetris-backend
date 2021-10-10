@@ -21,3 +21,9 @@ COPY . .
 RUN npm run build
 ENV NODE_ENV=production
 CMD [ "node", "dist/main.js" ]
+
+# 定义 live-dev 目标
+FROM base as live-dev
+RUN npm install
+COPY . .
+CMD [ "npm", "run", "start:dev" ]

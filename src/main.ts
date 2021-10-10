@@ -5,6 +5,11 @@ import { HttpExceptionFilter } from './exception-filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const basePath = 'api/v1';
+  app.setGlobalPrefix(basePath);
+
+  app.enableCors();
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   const config = new DocumentBuilder()
     .addBearerAuth()
@@ -15,10 +20,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
-  app.setGlobalPrefix('api/v1');
-  app.enableCors();
-  app.useGlobalFilters(new HttpExceptionFilter());
 
   await app.listen(3000);
 }

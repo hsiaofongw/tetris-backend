@@ -8,13 +8,31 @@ import { JwtModule } from '@nestjs/jwt';
 import { LoginService } from './login/login.service';
 import { UserController } from './user/user.controller';
 import { JwtStrategy } from './auth/jwt.strategy';
+import { UserService } from './user/user.services';
+import { MongooseModule } from '@nestjs/mongoose';
+import { getConnectionString } from './mongodb/mongodb.connect';
+import { GameLogsModule } from './game-logs/game-logs.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: ['.env.secret'] }),
     JwtModule.register({ secret: process.env['JWT_SECRET'] }),
+    MongooseModule.forRoot(
+      getConnectionString({
+        username: process.env['MONGODB_USERNAME'],
+        password: process.env['MONGODB_PASSWORD'],
+        defaultDatabaseName: process.env['DEFAULT_DATABASE_NAME'],
+      }),
+    ),
+    GameLogsModule,
   ],
   controllers: [AppController, TokenController, UserController],
-  providers: [AppService, GithubAuthTokenService, LoginService, JwtStrategy],
+  providers: [
+    AppService,
+    GithubAuthTokenService,
+    LoginService,
+    UserService,
+    JwtStrategy,
+  ],
 })
 export class AppModule {}
