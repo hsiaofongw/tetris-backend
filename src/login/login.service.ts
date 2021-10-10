@@ -9,27 +9,14 @@ export type ILoginInfo = {
 
 @Injectable()
 export class LoginService {
-  loginInfos: ILoginInfo[] = [];
-
   constructor(private jwtService: JwtService) {}
 
-  issueNewUserId(): number {
-    return this.loginInfos.length;
-  }
-
-  sign(tokenInfo: TokenInfo, username: string): string {
-    const userId = this.issueNewUserId();
+  public sign(tokenInfo: TokenInfo, username: string): string {
     const expiresIn = tokenInfo.expiresIn.toString() + 's';
     const jwt = this.jwtService.sign(
-      { userId, expiresIn, username },
+      { expiresIn, username, token: tokenInfo.accessToken },
       { expiresIn },
     );
-    const loginInfo: ILoginInfo = { oauthTokenInfo: tokenInfo, jwtToken: jwt };
-    this.loginInfos.push(loginInfo);
     return jwt;
-  }
-
-  findUserLoginInfo(userId: number): ILoginInfo {
-    return this.loginInfos[userId];
   }
 }
