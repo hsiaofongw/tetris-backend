@@ -17,10 +17,13 @@ export class LoginService {
     return this.loginInfos.length;
   }
 
-  sign(tokenInfo: TokenInfo): string {
+  sign(tokenInfo: TokenInfo, username: string): string {
     const userId = this.issueNewUserId();
     const expiresIn = tokenInfo.expiresIn.toString() + 's';
-    const jwt = this.jwtService.sign({ userId, expiresIn }, { expiresIn });
+    const jwt = this.jwtService.sign(
+      { userId, expiresIn, username },
+      { expiresIn },
+    );
     const loginInfo: ILoginInfo = { oauthTokenInfo: tokenInfo, jwtToken: jwt };
     this.loginInfos.push(loginInfo);
     return jwt;
