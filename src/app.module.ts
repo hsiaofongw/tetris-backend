@@ -12,6 +12,7 @@ import { UserService } from './user/user.services';
 import { MongooseModule } from '@nestjs/mongoose';
 import { getConnectionString } from './mongodb/mongodb.connect';
 import { GameLogsModule } from './game-logs/game-logs.module';
+import { GetVersionController } from './version/get-version.controller';
 
 @Module({
   imports: [
@@ -26,7 +27,12 @@ import { GameLogsModule } from './game-logs/game-logs.module';
     ),
     GameLogsModule,
   ],
-  controllers: [AppController, TokenController, UserController],
+  controllers: [
+    AppController,
+    TokenController,
+    UserController,
+    GetVersionController,
+  ],
   providers: [
     AppService,
     GithubAuthTokenService,
